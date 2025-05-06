@@ -1,124 +1,25 @@
-class Node {
-  int nodeValue;
-  Node? next;
+class DNode<T> {
+  T? nodeValue;
+  DNode<T>? prev;
+  DNode<T>? next;
 
-  Node(this.nodeValue) : next = null;
-}
-
-class SingleLinkedList {
-  /* Single Linked List */
-  Node? head = null;
-  
-  bool isEmpty() {
-    return head == null;
+  DNode() {
+    nodeValue = null;
+    next = this;
+    prev = this;
   }
 
-void InsertFront(int data) {
-  Node newNode = Node(data);
-  if (isEmpty()) {
-    head = newNode;
-  } else {
-  newNode.next = head;
-  head = newNode;
-  }
-}
-
-void InsertBack(int data) {
-  Node newNode = Node(data);
-  if (isEmpty()) {
-    head = newNode;
-  } else {
-  Node? temp = head;
-  while (temp!.next != null) {
-  temp = temp.next;
-  }
-  temp.next = newNode;
-  }
-}
-
-void InsertAfter(Node prevNode, int newData) {
-  if (prevNode == isEmpty()) {
-    print("The given previous node cannot be null");
-  }
-  Node newNode = Node(newData);
-  newNode.next = prevNode.next;
-  prevNode.next = newNode;
-}
-
-void deleteFront() {
-  if (!isEmpty()) {
-    if (head!.next != null) {
-      head = head!.next;
-    } else {
-    head = null;
-    }
-  }
-}
-
-void deleteEnd() {
-  if (!isEmpty()) {
-    if (head!.next != null) {
-      Node? bantu = head;
-      while (bantu!.next!.next != null) {
-        bantu = bantu.next;
-      }
-      bantu.next = null;
-    } else {
-      head = null;
-    }
-  }
-}
-
-void deleteMiddle(int cari) {
-  if (!isEmpty()) {
-    if (head!.next != null) {
-      Node? bantu = head;
-      while (bantu!.next!.nodeValue != cari) {
-        bantu = bantu.next;
-      }
-      Node? hapus = bantu.next;
-      bantu.next = hapus!.next;
-      hapus.next = null;
-    } else {
-      head = null;
-    }
-  }
-}
-
-void PrintList() {
-  if (!isEmpty()) {
-    Node? now = head;
-    while (now != null) {
-        print('${now.nodeValue} ');
-        now = now.next;
-      }
-    } else {
-      print('Linked List dalam kondisi kosong');
-    }
+  DNode.withValue(T item) {
+    nodeValue = item;
+    next = this;
+    prev = this;
   }
 }
 
 void main() {
-  SingleLinkedList ll = SingleLinkedList();
-  
-  print("Data:");
-  ll.InsertFront(10);
-  ll.InsertFront(30);
-  
-  print("Operasi Insertion Front of Linked List:");
-  ll.PrintList();
-  ll.InsertBack(5);
-  
-  print("Operasi Insertion Back of Linked List:");
-  // ll.PrintList();
-  
-  print("Insert After Data: ");
-  ll.InsertAfter(ll.head!.next!.next!, 20);
-  ll.PrintList();
-  
-  print("Delete data:");
-  // ll.deleteFront();
-  ll.deleteEnd();
-  ll.deleteMiddle(5);
-  ll.PrintList();
+  DNode<String> nodeKosong = DNode();             // Node kosong
+  DNode<String> nodeIsi = DNode.withValue("red"); // Node dengan isi
+
+  print("Node kosong: ${nodeKosong.nodeValue}"); // Output: null
+  print("Node isi: ${nodeIsi.nodeValue}");       // Output: red
 }
